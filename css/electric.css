@@ -128,3 +128,35 @@
     box-shadow: 0 0 0 1px #0a0a0a;
     /* Tiny black ring to separate opacity from glow */
 }
+
+/* 
+   MOBILE PERFORMANCE OPTIMIZATION 
+   Disable SVG turbulence on mobile/tablets to prevent lag
+*/
+@media (max-width: 768px) {
+    /* Hide the heavy SVG filter calculation layers */
+    .svg-container,
+    .inner-container, 
+    .main-card-border,
+    .background-glow {
+        display: none !important;
+    }
+
+    /* Reset the content container to look like a normal upgraded card */
+    .electric-content {
+        /* Add a nice static distinctive border */
+        border: 2px solid var(--electric-border-color) !important;
+        
+        /* Add a static glow using box-shadow instead of filters */
+        box-shadow: 0 0 20px rgba(168, 85, 247, 0.4),
+                    inset 0 0 20px rgba(168, 85, 247, 0.1) !important;
+        
+        z-index: 1; /* Reset z-index */
+    }
+    
+    /* Ensure the container doesn't have overflow issues without the expansion */
+    .card-container-electric {
+        overflow: hidden;
+        border-radius: 16px;
+    }
+}
