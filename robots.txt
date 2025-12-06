@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://synoriya.com/sitemap.xml
+
+# Disallow admin/test pages if any exist
+Disallow: /test/
+Disallow: /admin/
+Disallow: /*.js$
+Disallow: /*.css$
+
+# Allow all other content
+Allow: /*.html$

@@ -1,0 +1,130 @@
+/* Electric Grid Animation CSS */
+/* Adapted for Synoriya Pricing Card */
+
+:root {
+    --electric-border-color: #a855f7;
+    --electric-light-color: #d8b4fe;
+}
+
+/* Scoped Wrapper */
+.electric-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* SVG Container - hidden */
+.svg-container {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.card-container-electric {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 16px;
+    overflow: visible;
+    /* CRITICAL: Allow grid to spill out */
+    transform-style: preserve-3d;
+    /* Help with z-index stacking */
+}
+
+/* Inner container layer for effects */
+.inner-container {
+    position: absolute;
+    /* Make the effect container LARGER than the card */
+    inset: -12px;
+    z-index: 0;
+    /* Behind content */
+    pointer-events: none;
+}
+
+/* 
+   TURBULENCE BORDER LAYER 
+   This creates the jagged electric line
+*/
+.border-outer {
+    position: absolute;
+    inset: 0;
+    /* Fills the expanded inner-container */
+    border-radius: 24px;
+    /* Larger radius for outer shell */
+    pointer-events: none;
+}
+
+.main-card-border {
+    position: absolute;
+    inset: 5px;
+    /* Pull it slightly in from the max expansion, but still outside card */
+    border: 2px solid var(--electric-border-color);
+    border-radius: 20px;
+    filter: url(#turbulent-displace);
+    opacity: 1;
+}
+
+/* Glow effects */
+.glow-layer-1 {
+    position: absolute;
+    inset: 8px;
+    /* Closer to card */
+    border: 2px solid rgba(168, 85, 247, 0.5);
+    border-radius: 18px;
+    filter: blur(4px);
+}
+
+.glow-layer-2 {
+    position: absolute;
+    inset: 4px;
+    border: 2px solid var(--electric-light-color);
+    border-radius: 20px;
+    filter: blur(10px);
+    opacity: 0.6;
+}
+
+/* Background Glow behind everything */
+.background-glow {
+    position: absolute;
+    inset: -20px;
+    border-radius: 30px;
+    filter: blur(60px);
+    opacity: 0.3;
+    z-index: -1;
+    background: radial-gradient(circle at center, var(--electric-border-color), transparent 70%);
+}
+
+/* 
+   CONTENT CONTAINER 
+   This is the actual card "Body" that must be opaque
+*/
+.electric-content {
+    position: relative;
+    z-index: 10;
+    /* Must be clearly on top */
+    flex-grow: 1;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 16px;
+
+    /* 1. Solid opaque base color to block see-through */
+    background-color: #121212;
+
+    /* 2. Gradient overlay on top (using multiple backgrounds) */
+    background-image: linear-gradient(180deg, rgba(168, 85, 247, 0.15) 0%, rgba(18, 18, 18, 0) 100%);
+
+    /* Ensure border matches other cards if specific properties needed, 
+     but user likely wants the electric border to BE the main border visualization.
+     Adding a subtle inner border helps define the edge against the electric gap. */
+    border: 1px solid rgba(168, 85, 247, 0.3);
+
+    box-shadow: 0 0 0 1px #0a0a0a;
+    /* Tiny black ring to separate opacity from glow */
+}
